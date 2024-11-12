@@ -2,6 +2,7 @@
 	<view class="container">
 		<home v-if="viewAction==1"/>
 		<task v-if="viewAction==2"/>
+		<user v-if="viewAction==5"/>
 		
 		
 		<view class="bottom-view">
@@ -9,7 +10,7 @@
 			<view class="bottom-view-item" @click="viewAction=2"><image mode="widthFix" style="width: 50rpx;"  src="../../static/icon_bottom_rw.png"></image></view>
 			<view class="bottom-view-item" ><image mode="widthFix" style="width: 50rpx;"  src="../../static/icon_bottom_td.png"></image></view>
 			<view class="bottom-view-item" ><image mode="widthFix" style="width: 50rpx;"  src="../../static/icon_bottom_vip.png"></image></view>
-			<view class="bottom-view-item" ><image mode="widthFix" style="width: 50rpx;"  src="../../static/icon_bottom_user.png"></image></view>
+			<view class="bottom-view-item" @click="viewAction=5"><image mode="widthFix" style="width: 50rpx;"  src="../../static/icon_bottom_user.png"></image></view>
 		</view>
 	</view>
 </template>
@@ -17,6 +18,7 @@
 <script>
 	import home from './home/index.vue'
 	import task from './task/index.vue'
+	import user from './user/index.vue'
 	export default {
 		data() {
 			return {
@@ -28,7 +30,7 @@
 			
 		},
 		components:{
-			home,task
+			home,task,user
 		},
 		methods: {
 

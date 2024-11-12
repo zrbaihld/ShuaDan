@@ -23,9 +23,25 @@ export default {
 	upiAccountAdd:  "/api/upiAccount/add",
 	upiAccountEdit:  "/api/upiAccount/edit",
 	upiAccountList:  "/api/upiAccount/getList",
-	incomeOrderGet:  "/api/incomeOrder/get",
-	getPending:  "/api/incomeOrder/getPending",
 	bankAccountAdd:  "/api/bankAccount/add",
+	imgUpload: BaseURL+ "/api/file/imgUpload",
+	
+	payoutOrderGet:  "/api/payoutOrder/get",
+	payoutOrderGetPending:  "/api/payoutOrder/getPending",
+	payoutOrderSuccess:  "/api/payoutOrder/success",
+	payoutOrderFailed:  "/api/payoutOrder/failed",
+	payoutOrderGetList:  "/api/payoutOrder/getList",
+	
+	incomeOrderGet:  "/api/incomeOrder/get",
+	incomeOrderGetPending:  "/api/incomeOrder/getPending",
+	incomeOrderSuccess:  "/api/incomeOrder/success",
+	incomeOrderFailed:  "/api/incomeOrder/failed",
+	incomeOrderGetList:  "/api/incomeOrder/getList",
+	
+	cashSubmit:  "/api/cash/submit",
+	cashGetFee:  "/api/cash/getFee",
+	cashGetList:  "/api/cash/getList",
+	
 	
 }
 // upiAccountAdd{

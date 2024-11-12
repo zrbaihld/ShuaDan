@@ -22,6 +22,13 @@
 			"navigationBarTitleText" : "",
 			"navigationStyle": "custom"
 		}
+	},
+	{
+		"path" : "pages/index/user/IncomeList/IncomeList",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

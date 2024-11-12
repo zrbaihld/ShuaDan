@@ -21,6 +21,10 @@ import http from '@/common/vmeitime-http/index.js'
 
 
 
+import uView from '@/uni_modules/uview-ui'
+Vue.use(uView)
+// 如此配置即可
+uni.$u.config.unit = 'rpx'
 
 Vue.use(VueI18n)
 const i18n = new VueI18n(i18nConfig)

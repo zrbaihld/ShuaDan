@@ -16,8 +16,12 @@
 		</view>
 		<view class="content">
 			<view class="tab" style="margin-top: 50rpx;">
-				<view class="left" :class="{active:accountType==1}" @click="tapClick(1)">प्रगति पर है</view>
-				<view class="right" :class="{active:accountType==2}" @click="tapClick(2)">पुरा होना।</view>
+				<view class="left" :class="{active:accountType==0}" @click="tapClick(0)">代收</view>
+				<view class="right" :class="{active:accountType==1}" @click="tapClick(1)">代付</view>
+			</view>
+			<view class="uni-padding-wrap uni-common-mt">
+				<uni-segmented-control :current="current" :values="items" :style-type="styleType"
+					 @clickItem="onClickItem" />
 			</view>
 
 			<view class="content-card" v-for="item in list">
@@ -25,20 +29,30 @@
 					<view>नाम：{{item.orderNo}}</view>
 					<image src="../../../static/icon_bottom_select.png" style="width: 26rpx;height: 26rpx;"></image>
 				</view>
-				<view class="line2">किनारा：{{item.upiAccount}}</view>
-				<view class="line3">
+				<view class="line3" v-if="current==0">
+					<view class="line3-title">किनारा：{{item.upiAccount}}</view>
+					<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.upiAccount)"></image>
+				</view>
+				<view class="line3" v-if="current==1">
 					<view class="line3-title">किनारा：{{item.bankAccount}}</view>
-					<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item)"></image>
+					<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.bankAccount)"></image>
 				</view>
 				<view class="line4">
 					<view>मात्रा：{{item.orderMoney}}</view>
 					<view>लाभ：{{item.commission}}</view>
 					<view class="date">12/6--12/12</view>
 				</view>
-				
-				<view class="button" @click="toDetail(item)">
-					प्राप्त करें
+				<view class="lin5">
+					<view class="button" @click="toDetail(item,1)">
+						成功
+					</view>
+					
+					<view class="button cancel" @click="toDetail(item,2)">
+						失败
+					</view>
 				</view>
+				
+				
 			</view>
 		</view>
 		
@@ -46,9 +60,9 @@
 			<uni-popup-dialog ref="inputClose" mode="input" title="绑定银行卡" value="对话框预置提示内容!"
 								placeholder="请输入内容" @confirm="dialogInputConfirm">
 								<view class="popup-content">
-									<uni-easyinput v-if="accountType==2" style="margin-top: 10rpx;" v-model="dialogForm.bankAccount" :clearable=false :placeholder="$t('银行卡号')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
-									<uni-easyinput v-if="accountType==2" style="margin-top: 10rpx;" v-model="dialogForm.IFSC" :clearable=false :placeholder="$t('IFSC')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
-									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.upiAccount" :clearable=false :placeholder="$t('upiAccount')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.bankAccount" :clearable=false :placeholder="$t('银行卡号')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.IFSC" :clearable=false :placeholder="$t('IFSC')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+									<uni-easyinput v-if="accountType==0" style="margin-top: 10rpx;" v-model="dialogForm.upiAccount" :clearable=false :placeholder="$t('upiAccount')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 									<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.accountName" :clearable=false :placeholder="$t('accountName')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 								</view>
 			</uni-popup-dialog>
@@ -58,20 +72,15 @@
 </template>
 
 <script>
+	import { pathToBase64, base64ToPath } from 'image-tools'
 	export default {
 		data() {
 			return {
-				accountType:1,
-				list:[{
-					accountType:1,//0不限制  1 UPI 2 银行卡
-					orderNo:'',
-					orderName:'',
-					upiAccount:'',
-					bankAccount:'',
-					IFSC:'',
-					orderMoney:'',
-					commission:'',
-				}],
+				accountType:0,
+				list:[],
+				current: 0,
+				styleType: 'button',
+				items: ['UPI', '银行卡'],
 				dialogForm:{
 					userAccount:'',
 					bankAccount:'',
@@ -89,18 +98,23 @@
 		},
 		methods: {
 			loadDetail(){
-				this.$refs.popup.open()
 				uni.showLoading({
 					title:'加载中'
 				})
+				let url = ""
+				if (this.accountType==0) {
+					url=this.$url.incomeOrderGetPending
+				}else{
+					url=this.$url.payoutOrderGetPending
+				}
 				this.$api
-					.post(this.$url.incomeOrderGet, {
+					.post(url, {
 						userAccount:this.$store.getters.aid,
-						accountType:this.accountType,
+						accountType:this.current,
 					})
 					.then(res => {
 						if (res.code==0) {
-							
+							this.list=[res.data]
 						} 
 					}).catch(err=>{
 						if(err.code==32){
@@ -113,24 +127,55 @@
 			},
 			dialogInputConfirm(){
 				let url=''
-				if (this.accountType==1) {
+				let form=Object.assign(this.dialogForm)
+				if (this.accountType==0) {
 					url=this.$url.upiAccountAdd
+					delete form.bankAccount
+					delete form.IFSC
 				}else{
 					url=this.$url.bankAccountAdd
+					delete form.upiAccountss
 				}
 				uni.showLoading({
 					title:'加载中'
 				})
 				this.$api
-					.post(url, this.dialogForm)
+					.post(url, form)
 					.then(res => {
 						if (res.code==0) {
 							this.loadDetail()
+							this.$refs.popup.close()
 						} 
 					}).catch(err=>{
 					})
 					.finally(() => {
 						uni.hideLoading()
+					});
+			},
+			onClickItem(e) {
+				if (this.current !== e.currentIndex) {
+					this.current = e.currentIndex
+				}
+				uni.showLoading({
+					title:'加载中'
+				})
+				let url=''
+				if (this.accountType==0) {
+					url=this.$url.incomeOrderGet
+				}else{
+					url=this.$url.payoutOrderGet
+				}
+				this.$api
+					.post(url,{
+						userAccount:this.$store.getters.aid,
+						accountType:this.current,
+					})
+					.then(res => {
+					}).catch(err=>{
+					})
+					.finally(() => {
+						uni.hideLoading()
+						this.loadDetail()
 					});
 			},
 			tapClick(tap){
@@ -139,7 +184,7 @@
 			},
 			copyAccount(item){
 				uni.setClipboardData({  
-				    data: item.bankAccount,  
+				    data: item,  
 				    success: function () {  
 				        uni.showToast({  
 				            title: '复制成功',  
@@ -151,12 +196,94 @@
 				    }  
 				});
 			},
-			toDetail(item){
-				uni.navigateTo({
-					url:"/pages/index/task/detail?id="+item.id
+			toDetail(item,type){
+				//1成功
+				uni.chooseImage({
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						// const tempFilePaths = res.tempFilePaths;
+						uni.showLoading({
+							title:'加载中'
+						})
+						pathToBase64(tempFilePaths[0]).then(base64 => {
+						    console.log("图片=="+base64);
+							this.uploadStatus(base64,type,item)
+						 }).catch(error => {
+						    console.error(error)
+						})
+						// console.log('chooseImageRes.tempFiles[0].data',chooseImageRes.tempFiles[0]);
+						// this.uploadStatus(chooseImageRes.tempFiles[0].data,type,item)
+						        
+						// // 创建一个文件读取器
+						// const reader = new FileReader();
+						
+						// // 读取文件内容，读取完成后会触发onload事件
+						// reader.onload = function (e) {
+						//     // e.target.result即为base64编码
+						//     const base64 = e.target.result;
+						//     console.log(base64);
+						// 	this.uploadStatus(base64,type,item)
+						//     // 在这里你可以使用base64编码的图片进行后续操作
+						// };
+						
+						// // 读取文件内容，参数为文件的本地路径
+						// reader.readAsDataURL(tempFilePaths[0]);
+								
+						// const uploadTask = uni.uploadFile({
+						// 	url: this.$url.imgUpload, //仅为示例，非真实的接口地址
+						// 	filePath: tempFilePaths[0],
+						// 	name: 'img',
+						// 	header:{
+						// 		'Content-Type': 'multipart/form-data'
+						// 	},
+						// 	success: (uploadFileRes) => {
+						// 		console.log(uploadFileRes.data);
+						// 		this.loadDetail()
+						// 	}
+						// });
+						// uploadTask.onProgressUpdate((res) => {
+						// 	console.log('上传进度' + res.progress);
+						// 	console.log('已经上传的数据长度' + res.totalBytesSent);
+						// 	console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
+						// });
+					}
+				});
+			},
+			uploadStatus(path,type,item){
+				uni.showLoading({
+					title:'加载中'
 				})
+				let url=''
+				if (this.accountType==0) {
+					if (type==1) {
+						url=this.$url.incomeOrderSuccess
+					}else{
+						url=this.$url.incomeOrderFailed
+					}
+					
+				}else{
+					if (type==1) {
+						url=this.$url.payoutOrderSuccess
+					}else{
+						url=this.$url.payoutOrderFailed
+					}
+				}
+				this.$api
+					.post(url,{
+						userAccount:this.$store.getters.aid,
+						orderNo:item.orderNo,
+						orderMoney:item.orderMoney,
+						payMoney:item.orderMoney,
+						photp:path,
+					})
+					.then(res => {
+					}).catch(err=>{
+					})
+					.finally(() => {
+						uni.hideLoading()
+						this.loadDetail()
+					});
 			}
-
 		}
 	}
 </script>
@@ -231,6 +358,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		.uni-padding-wrap{
+			width: 640rpx;
+			margin-top: 20rpx;
+		}
 
 		.tab {
 			width: 640rpx;
@@ -338,24 +469,30 @@
 					color: #FFFFFF;
 				}
 			}
+			.lin5{
+				display: flex;
+				justify-content: space-between;
+				margin-top: 20rpx;
+				.button{
+					width: 153rpx;
+					height: 70rpx;
+					line-height: 70rpx;
+					background: #F5BB0F;
+					box-shadow: 0px 9rpx 13rpx 0px rgba(245,187,15,0.24);
+					border-radius: 20rpx;
+					font-family: Nirmala UI;
+					font-weight: bold;
+					font-size: 32rpx;
+					color: #FFFFFF;
+					text-align: center;
+				}
+				.cancel{
+					background: #cacaca;
+					box-shadow: 0px 9rpx 13rpx 0px rgba(170, 170, 170, 0.2);
+				}
 			
-			.button{
-				width: 153rpx;
-				height: 90rpx;
-				line-height: 90rpx;
-				background: #F5BB0F;
-				box-shadow: 0px 9rpx 13rpx 0px rgba(245,187,15,0.24);
-				border-radius: 20rpx;
-				font-family: Nirmala UI;
-				font-weight: bold;
-				font-size: 32rpx;
-				color: #FFFFFF;
-				text-align: center;
-				
-				position: absolute;
-				right: 28rpx;
-				top: calc(50% - 45rpx);
 			}
+			
 		}
 	}
 	.popup-content{

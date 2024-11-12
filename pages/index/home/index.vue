@@ -29,7 +29,7 @@
 		</view>
 		<view class="content">
 			<view class="content-item-view">
-				<view class="content-item" style="margin-top: 60rpx;">
+				<view class="content-item" style="margin-top: 60rpx;" @click="showCash">
 					<image src="../../../static/icon_bottom_tixian.png" style="width: 80rpx;" mode="widthFix"></image>
 					<view>{{$t('नकदी वापिस लेना')}}</view>
 				</view>
@@ -46,7 +46,16 @@
 			</view>
 			
 		</view>
-		
+		<uni-popup ref="popup" background-color="#fff">
+			<uni-popup-dialog ref="inputClose" mode="input" title="提现"
+				placeholder="请输入内容" @confirm="dialogInputConfirm">
+				<view class="popup-content">
+					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.money" :clearable=false :placeholder="$t('提现金额')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.trc20Address" :clearable=false :placeholder="$t('收款地址')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+					
+				</view>
+			</uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -60,7 +69,13 @@
 					pendingOrder:'',
 					pendingMoney:'',
 					successOrder:'',
-				}
+				},
+				dialogForm:{
+					userAccount:'',
+					money:'',
+					trc20Address:'',
+				},
+
 			}
 		},
 		mounted() {
@@ -88,7 +103,28 @@
 					.finally(() => {
 						uni.hideLoading()
 					});
-			}
+			},
+			showCash(){
+				this.dialogForm.userAccount=this.$store.getters.aid
+				this.dialogForm.money=''
+				this.dialogForm.trc20Address=''
+				this.$refs.popup.open()
+			},
+			dialogInputConfirm(){
+				let url=this.$url.cashSubmit
+				this.$api
+					.post(url, this.dialogForm)
+					.then(res => {
+						if (res.code==0) {
+							this.loadDetail()
+							this.$refs.popup.close()
+						} 
+					}).catch(err=>{
+					})
+					.finally(() => {
+						uni.hideLoading()
+					});
+			},
 		}
 	}
 </script>
