@@ -17,6 +17,14 @@
 					</view>
 				</uni-card>
 				</u-list-item>
+				<u-empty
+				v-if="indexList.length==1"
+				width="380rpx"
+				height="380rpx"
+				textSize="32"
+				        icon="http://cdn.uviewui.com/uview/empty/car.png"
+				>
+				</u-empty>
 			</u-list>
 		</view>
 </template>

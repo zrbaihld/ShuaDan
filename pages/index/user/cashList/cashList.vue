@@ -5,20 +5,27 @@
 					v-for="(item, index) in indexList"
 					:key="index"
 				>
-				<uni-card :title="`${item.acctType == '0'?'UPI':'银行卡'}-${item.orderType == '0'?'代收':'代付'}`" >
+				<uni-card :title="`商户订单号${item.orderNo}`" >
 					<view>
-						<view>抢单用户订单号:{{item.orderPtNo}}</view>
-						<view>商户订单号:{{item.orderNo}}</view>
 						<view>金额:{{item.amount}}</view>
-						<view>收款账户名:{{item.person}}</view>
-						<view>收款账户:{{item.bankAccount}}</view>
-						<view v-if="item.acctType == 1">收款IFSC:{{item.branchName}}</view>
+						<view>地址:{{item.account}}</view>
+						<view >状态:{{item.status==0?'处理中':'已完成'}}</view>
 						<view>订单时间:{{item.createTime}}</view>
 					</view>
 						
 				</uni-card>
 				</u-list-item>
+				<u-empty
+				v-if="indexList.length==1"
+				width="380rpx"
+				height="380rpx"
+				textSize="32"
+				        icon="http://cdn.uviewui.com/uview/empty/car.png"
+				>
+				</u-empty>
 			</u-list>
+			
+			
 		</view>
 </template>
 
