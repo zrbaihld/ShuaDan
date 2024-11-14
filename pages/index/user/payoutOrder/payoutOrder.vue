@@ -15,7 +15,6 @@
 						<view v-if="item.acctType == 1">收款IFSC:{{item.branchName}}</view>
 						<view>订单时间:{{item.createTime}}</view>
 					</view>
-						
 				</uni-card>
 				</u-list-item>
 			</u-list>
@@ -39,7 +38,7 @@
 					title:'加载中'
 				})
 				this.$api
-					.post(url.incomeOrderGetList, {
+					.post(url.payoutOrderGetList, {
 						userAccount:this.$store.getters.aid
 					})
 					.then(res => {

@@ -42,7 +42,7 @@
 
 		<!-- 列表菜单 - 开始 -->
 		<view class="user-activity-menu">
-			<view class="menu-item" @click="goPage('coupon')">
+			<view class="menu-item" @click="goPage('cashList')">
 				<view class="left">
 					<image class="menu-icon" src="@/static/icons/icon_coupon.png"></image>
 					<view class="menu-name">提现记录</view>
@@ -56,21 +56,21 @@
 				</view>
 				<u-icon name="arrow-right"></u-icon>
 			</view>
-			<view class="menu-item" @click="goPage('userinfo')">
+			<view class="menu-item" @click="goPage('payoutOrder')">
 				<view class="left">
 					<image class="menu-icon" src="@/static/icons/icon_userinfo.png"></image>
 					<view class="menu-name">代付记录</view>
 				</view>
 				<u-icon name="arrow-right"></u-icon>
 			</view>
-			<view class="menu-item" @click="goPage('contact')">
+			<view class="menu-item" @click="goPage('upiAccountList')">
 				<view class="left">
 					<image class="menu-icon" src="@/static/icons/icon_contact.png"></image>
 					<view class="menu-name">upi 账户</view>
 				</view>
 				<u-icon name="arrow-right"></u-icon>
 			</view>
-			<view class="menu-item" @click="goPage('contact')">
+			<view class="menu-item" @click="goPage('bankAccountgetList')">
 				<view class="left">
 					<image class="menu-icon" src="@/static/icons/icon_contact.png"></image>
 					<view class="menu-name">bank 账户</view>

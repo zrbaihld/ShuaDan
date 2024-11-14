@@ -39,7 +39,7 @@
 					title:'加载中'
 				})
 				this.$api
-					.post(url.incomeOrderGetList, {
+					.post(url.cashGetList, {
 						userAccount:this.$store.getters.aid
 					})
 					.then(res => {

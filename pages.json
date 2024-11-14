@@ -27,9 +27,34 @@
 		"path" : "pages/index/user/IncomeList/IncomeList",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "代收记录"
 		}
-	}],
+	},{
+		"path" : "pages/index/user/cashList/cashList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "提现记录"
+		}
+	},{
+		"path" : "pages/index/user/payoutOrder/payoutOrder",
+		"style" : 
+		{
+			"navigationBarTitleText" : "代付记录"
+		}
+	},{
+		"path" : "pages/index/user/upiAccountList/upiAccountList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "upi 账户"
+		}
+	},{
+		"path" : "pages/index/user/bankAccountgetList/bankAccountgetList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "bank 账户"
+		}
+	}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

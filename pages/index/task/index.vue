@@ -23,37 +23,46 @@
 				<uni-segmented-control :current="current" :values="items" :style-type="styleType"
 					 @clickItem="onClickItem" />
 			</view>
-
-			<view class="content-card" v-for="item in list">
-				<view class="line1">
-					<view>नाम：{{item.orderNo}}</view>
-					<image src="../../../static/icon_bottom_select.png" style="width: 26rpx;height: 26rpx;"></image>
-				</view>
-				<view class="line3" v-if="current==0">
-					<view class="line3-title">किनारा：{{item.upiAccount}}</view>
-					<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.upiAccount)"></image>
-				</view>
-				<view class="line3" v-if="current==1">
-					<view class="line3-title">किनारा：{{item.bankAccount}}</view>
-					<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.bankAccount)"></image>
-				</view>
-				<view class="line4">
-					<view>मात्रा：{{item.orderMoney}}</view>
-					<view>लाभ：{{item.commission}}</view>
-					<view class="date">12/6--12/12</view>
-				</view>
-				<view class="lin5">
-					<view class="button" @click="toDetail(item,1)">
-						成功
+			<view v-if="list.length>0">
+				<view class="content-card" v-for="item in list">
+					<view class="line1">
+						<view>नाम：{{item.orderNo}}</view>
+						<image src="../../../static/icon_bottom_select.png" style="width: 26rpx;height: 26rpx;"></image>
+					</view>
+					<view class="line3" v-if="current==0">
+						<view class="line3-title">किनारा：{{item.upiAccount}}</view>
+						<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.upiAccount)"></image>
+					</view>
+					<view class="line3" v-if="current==1">
+						<view class="line3-title">किनारा：{{item.bankAccount}}</view>
+						<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.bankAccount)"></image>
+					</view>
+					<view class="line4">
+						<view>मात्रा：{{item.orderMoney}}</view>
+						<view>लाभ：{{item.commission}}</view>
+						<view class="date">{{item.expiresTime}}</view>
 					</view>
 					
-					<view class="button cancel" @click="toDetail(item,2)">
-						失败
+					<view class="lin5">
+						<view class="button" @click="toDetail(item,1)">
+							成功
+						</view>
+						
+						<view class="button cancel" @click="toDetail(item,2)">
+							失败
+						</view>
 					</view>
+					
+					
 				</view>
-				
-				
 			</view>
+			<view class="content-view" v-else>
+				<view class="button" @click="getOrder()">
+					接单
+				</view>
+			</view>
+
+			
 		</view>
 		
 		<uni-popup ref="popup" background-color="#fff" @change="change">
@@ -156,6 +165,9 @@
 				if (this.current !== e.currentIndex) {
 					this.current = e.currentIndex
 				}
+				
+			},
+			getOrder(){
 				uni.showLoading({
 					title:'加载中'
 				})
@@ -211,41 +223,6 @@
 						 }).catch(error => {
 						    console.error(error)
 						})
-						// console.log('chooseImageRes.tempFiles[0].data',chooseImageRes.tempFiles[0]);
-						// this.uploadStatus(chooseImageRes.tempFiles[0].data,type,item)
-						        
-						// // 创建一个文件读取器
-						// const reader = new FileReader();
-						
-						// // 读取文件内容，读取完成后会触发onload事件
-						// reader.onload = function (e) {
-						//     // e.target.result即为base64编码
-						//     const base64 = e.target.result;
-						//     console.log(base64);
-						// 	this.uploadStatus(base64,type,item)
-						//     // 在这里你可以使用base64编码的图片进行后续操作
-						// };
-						
-						// // 读取文件内容，参数为文件的本地路径
-						// reader.readAsDataURL(tempFilePaths[0]);
-								
-						// const uploadTask = uni.uploadFile({
-						// 	url: this.$url.imgUpload, //仅为示例，非真实的接口地址
-						// 	filePath: tempFilePaths[0],
-						// 	name: 'img',
-						// 	header:{
-						// 		'Content-Type': 'multipart/form-data'
-						// 	},
-						// 	success: (uploadFileRes) => {
-						// 		console.log(uploadFileRes.data);
-						// 		this.loadDetail()
-						// 	}
-						// });
-						// uploadTask.onProgressUpdate((res) => {
-						// 	console.log('上传进度' + res.progress);
-						// 	console.log('已经上传的数据长度' + res.totalBytesSent);
-						// 	console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-						// });
 					}
 				});
 			},
@@ -254,28 +231,31 @@
 					title:'加载中'
 				})
 				let url=''
+				let form = {
+					userAccount:this.$store.getters.aid,
+					orderNo:item.orderNo,
+					orderMoney:item.orderMoney,
+					payMoney:item.orderMoney,
+					receiveMoney:item.orderMoney,
+					photp:path,
+				}
 				if (this.accountType==0) {
 					if (type==1) {
 						url=this.$url.incomeOrderSuccess
 					}else{
 						url=this.$url.incomeOrderFailed
 					}
-					
+					delete form.payMoney
 				}else{
 					if (type==1) {
 						url=this.$url.payoutOrderSuccess
 					}else{
 						url=this.$url.payoutOrderFailed
 					}
+					delete form.receiveMoney
 				}
 				this.$api
-					.post(url,{
-						userAccount:this.$store.getters.aid,
-						orderNo:item.orderNo,
-						orderMoney:item.orderMoney,
-						payMoney:item.orderMoney,
-						photp:path,
-					})
+					.post(url,form)
 					.then(res => {
 					}).catch(err=>{
 					})
@@ -493,6 +473,24 @@
 			
 			}
 			
+		}
+		.content-view{
+			padding-top: 200rpx;
+			padding-bottom: 200rpx;
+			
+			.button{
+				width: 153rpx;
+				height: 70rpx;
+				line-height: 70rpx;
+				background: #F5BB0F;
+				box-shadow: 0px 9rpx 13rpx 0px rgba(245,187,15,0.24);
+				border-radius: 20rpx;
+				font-family: Nirmala UI;
+				font-weight: bold;
+				font-size: 32rpx;
+				color: #FFFFFF;
+				text-align: center;
+			}
 		}
 	}
 	.popup-content{

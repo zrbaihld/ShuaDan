@@ -24,6 +24,7 @@ export default {
 	upiAccountEdit:  "/api/upiAccount/edit",
 	upiAccountList:  "/api/upiAccount/getList",
 	bankAccountAdd:  "/api/bankAccount/add",
+	bankAccountgetList:  "/api/bankAccount/getList",
 	imgUpload: BaseURL+ "/api/file/imgUpload",
 	
 	payoutOrderGet:  "/api/payoutOrder/get",

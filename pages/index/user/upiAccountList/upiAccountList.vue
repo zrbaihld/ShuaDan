@@ -5,17 +5,11 @@
 					v-for="(item, index) in indexList"
 					:key="index"
 				>
-				<uni-card :title="`${item.acctType == '0'?'UPI':'银行卡'}-${item.orderType == '0'?'代收':'代付'}`" >
+				<uni-card :title="`upi账户${item.upiAccount}`" >
 					<view>
-						<view>抢单用户订单号:{{item.orderPtNo}}</view>
-						<view>商户订单号:{{item.orderNo}}</view>
-						<view>金额:{{item.amount}}</view>
-						<view>收款账户名:{{item.person}}</view>
-						<view>收款账户:{{item.bankAccount}}</view>
-						<view v-if="item.acctType == 1">收款IFSC:{{item.branchName}}</view>
-						<view>订单时间:{{item.createTime}}</view>
+						<view>upi账户名:{{item.person}}</view>
+						<view >状态:{{item.status==0?'启用':'禁用'}}</view>
 					</view>
-						
 				</uni-card>
 				</u-list-item>
 			</u-list>
@@ -39,7 +33,7 @@
 					title:'加载中'
 				})
 				this.$api
-					.post(url.incomeOrderGetList, {
+					.post(url.upiAccountList, {
 						userAccount:this.$store.getters.aid
 					})
 					.then(res => {
