@@ -8,7 +8,7 @@
 		<view class="user-info-box">
 			<u-avatar :src="userInfo.avg?userInfo.avg:user_avg" shape="square"></u-avatar>
 			<view class="user-info-right">
-				<view class="user-nickname">{{ userInfo.nickName?userInfo.nickName:user_name }}</view>
+				<view class="user-nickname">{{ detail.userName}}</view>
 				<view class="user-phone" v-if="userInfo.phone">{{ userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2') }}</view>
 			</view>
 		</view>
@@ -97,7 +97,8 @@
 				user_banner: require('@/static/index_banner.png'),
 				user_avg: require('@/static/logo.png'),
 				user_name: '轻院煮义',
-				userInfo: {}
+				userInfo: {},
+				detail: {},
 			};
 		},
 		created() {
@@ -107,6 +108,7 @@
 					_this.version = res.appVersion
 				},
 			})
+			this.loadDetail()
 		},
 		onShow() {
 			const store = uni.getStorageSync('system')
@@ -117,6 +119,21 @@
 			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		methods: {
+			loadDetail(){
+				uni.showLoading({
+					title:'加载中'
+				})
+				this.$api
+					.post(this.$url.userIndex, {})
+					.then(res => {
+						if (res.code==0) {
+							this.detail=res.data
+						}
+					})
+					.finally(() => {
+						uni.hideLoading()
+					});
+			},
 			/* 跳转页面 */
 			goPage(pageName) {
 				switch (pageName) {

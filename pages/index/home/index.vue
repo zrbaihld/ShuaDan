@@ -92,12 +92,6 @@
 					.then(res => {
 						if (res.code==0) {
 							this.detail=res.data
-							// userName	true	String	姓名
-							// balance	true	Double	当前余额
-							// pendingOrder	true	Number	待处理订单数
-							// pendingMoney	true	Double	待处理金额
-							// successOrder	True	Number	成功完成订单数
-							
 						}
 					})
 					.finally(() => {
