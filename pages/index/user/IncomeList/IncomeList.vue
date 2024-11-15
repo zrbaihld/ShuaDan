@@ -19,7 +19,7 @@
 				</uni-card>
 				</u-list-item>
 				<u-empty
-				v-if="indexList.length==1"
+				v-if="indexList.length==0"
 				width="380rpx"
 				height="380rpx"
 				textSize="32"
