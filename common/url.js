@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 	// ImageUrl="http://houseapp:12121/";
 	// #endif
 } else {
-	BaseURL='https://hdgy.fangguanyi.com/';
+	BaseURL='http://103.225.11.214/shiro/';
 }
 
 export default {
