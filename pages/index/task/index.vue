@@ -66,7 +66,7 @@
 		</view>
 		
 		<uni-popup ref="popup" background-color="#fff" @change="change">
-			<uni-popup-dialog ref="inputClose" mode="input" title="绑定银行卡" value="对话框预置提示内容!"
+			<uni-popup-dialog ref="inputClose" mode="input" :title="accountType==1?'绑定银行卡':'绑定UPI'" value="对话框预置提示内容!"
 								placeholder="请输入内容" @confirm="dialogInputConfirm">
 								<view class="popup-content">
 									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.bankAccount" :clearable=false :placeholder="$t('银行卡号')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
@@ -126,7 +126,7 @@
 							this.list=[res.data]
 						} 
 					}).catch(err=>{
-						if(err.code==32){
+						if(err.code==32||err.code==31){
 							this.$refs.popup.open()
 						}
 					})
