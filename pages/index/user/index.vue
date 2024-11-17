@@ -84,6 +84,13 @@
 				</view>
 				<view class="menu-number">{{ version }}</view>
 			</view>
+			<view class="menu-item" @click="outLogin">
+				<view class="left">
+					<image class="menu-icon" src="@/static/icons/icon_about.png"></image>
+					<view class="menu-name">退出登录</view>
+				</view>
+				<view class="menu-number"></view>
+			</view>
 		</view>
 		<!-- 列表菜单 - 结束 -->
 	</view>
@@ -144,6 +151,11 @@
 						})
 						break;
 				}
+			},
+			outLogin(){
+				uni.reLaunch({
+					url:"/pages/login/login"
+				})
 			}
 		}
 	}

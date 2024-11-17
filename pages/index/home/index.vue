@@ -78,8 +78,14 @@
 
 			}
 		},
-		mounted() {
+		created() {
 			this.loadDetail()
+		},
+		mounted() {
+			// this.loadDetail()
+		},
+		onLoad() {
+			// this.loadDetail()
 		},
 		
 		methods: {
