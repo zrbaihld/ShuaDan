@@ -183,11 +183,15 @@
 						accountType:this.current,
 					})
 					.then(res => {
+						this.loadDetail()
 					}).catch(err=>{
+						if(err.code==32||err.code==31){
+							this.$refs.popup.open()
+						}
 					})
 					.finally(() => {
 						uni.hideLoading()
-						this.loadDetail()
+						
 					});
 			},
 			tapClick(tap){
