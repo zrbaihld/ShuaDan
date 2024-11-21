@@ -34,12 +34,12 @@
 					<view>{{$t('नकदी वापिस लेना')}}</view>
 				</view>
 				
-				<view class="content-item" style="margin-top: 60rpx;background-color: #F5BB0F;">
+				<view class="content-item" style="margin-top: 60rpx;background-color: #F5BB0F;" @click="toRecharge">
 					<image src="../../../static/icon_bottom_czcs.png" style="width: 80rpx;" mode="widthFix"></image>
 					<view>{{$t('लबालब भरनाा')}}</view>
 				</view>
 				
-				<view class="content-item" style="margin-top: 60rpx;background-color: #1772F6;">
+				<view class="content-item" style="margin-top: 60rpx;background-color: #1772F6;" @click="toRechargeList">
 					<image src="../../../static/icon_bottom_water.png" style="width: 80rpx;" mode="widthFix"></image>
 					<view>{{$t('निधि प्रवाह पूछताछ')}}</view>
 				</view>
@@ -124,6 +124,16 @@
 					.finally(() => {
 						uni.hideLoading()
 					});
+			},
+			toRecharge(){
+				uni.navigateTo({
+					url:"/pages/index/recharge/recharge"
+				})
+			},
+			toRechargeList(){
+				uni.navigateTo({
+					url:"/pages/index/user/rechargeList/rechargeList"
+				})
 			},
 		}
 	}

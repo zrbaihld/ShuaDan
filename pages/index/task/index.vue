@@ -70,7 +70,7 @@
 								placeholder="请输入内容" @confirm="dialogInputConfirm">
 								<view class="popup-content">
 									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.bankAccount" :clearable=false :placeholder="$t('银行卡号')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
-									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.IFSC" :clearable=false :placeholder="$t('IFSC')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
+									<uni-easyinput v-if="accountType==1" style="margin-top: 10rpx;" v-model="dialogForm.ifsc" :clearable=false :placeholder="$t('IFSC')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 									<uni-easyinput v-if="accountType==0" style="margin-top: 10rpx;" v-model="dialogForm.upiAccount" :clearable=false :placeholder="$t('upiAccount')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 									<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.accountName" :clearable=false :placeholder="$t('accountName')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 								</view>
@@ -93,7 +93,7 @@
 				dialogForm:{
 					userAccount:'',
 					bankAccount:'',
-					IFSC:'',
+					ifsc:'',
 					accountName:'',
 					upiAccount:'',
 				}
@@ -140,7 +140,7 @@
 				if (this.accountType==0) {
 					url=this.$url.upiAccountAdd
 					delete form.bankAccount
-					delete form.IFSC
+					delete form.ifsc
 				}else{
 					url=this.$url.bankAccountAdd
 					delete form.upiAccountss

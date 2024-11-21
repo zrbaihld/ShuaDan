@@ -24,6 +24,7 @@ export default {
 	upiAccountEdit:  "/api/upiAccount/edit",
 	upiAccountList:  "/api/upiAccount/getList",
 	bankAccountAdd:  "/api/bankAccount/add",
+	bankAccountEdit:  "/api/bankAccount/edit",
 	bankAccountgetList:  "/api/bankAccount/getList",
 	imgUpload: BaseURL+ "/api/file/imgUpload",
 	
@@ -43,6 +44,9 @@ export default {
 	cashGetFee:  "/api/cash/getFee",
 	cashGetList:  "/api/cash/getList",
 	
+	rechargeGetAddr:  "/api/recharge/getAddr",
+	rechargeSubmit:  "/api/recharge/submit",
+	rechargeGetList:  "/api/recharge/getList",
 	
 }
 // upiAccountAdd{

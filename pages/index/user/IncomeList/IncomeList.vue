@@ -12,7 +12,7 @@
 						<view>金额:{{item.amount}}</view>
 						<view>收款账户名:{{item.person}}</view>
 						<view>收款账户:{{item.bankAccount}}</view>
-						<view v-if="item.acctType == 1">收款IFSC:{{item.branchName}}</view>
+						<view v-if="item.acctType == 1">收款ifsc:{{item.branchName}}</view>
 						<view>订单时间:{{item.createTime}}</view>
 					</view>
 						

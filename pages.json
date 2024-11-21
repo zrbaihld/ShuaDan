@@ -45,13 +45,47 @@
 		"path" : "pages/index/user/upiAccountList/upiAccountList",
 		"style" : 
 		{
-			"navigationBarTitleText" : "upi 账户"
+			"navigationBarTitleText" : "upi 账户",
+			"app-plus": {
+				"titleNView": {
+					"buttons": [{
+						"text": "添加",
+						"fontSrc": "/static/uni.ttf",
+						"fontSize": "16px",
+						"color": "#333333"
+					}]
+				}
+			}
 		}
 	},{
 		"path" : "pages/index/user/bankAccountgetList/bankAccountgetList",
 		"style" : 
 		{
-			"navigationBarTitleText" : "bank 账户"
+			"navigationBarTitleText" : "bank 账户",
+			"app-plus": {
+				"titleNView": {
+					"buttons": [{
+						"text": "添加",
+						"fontSrc": "/static/uni.ttf",
+						"fontSize": "16px",
+						"color": "#333333"
+					}]
+				}
+			}
+		}
+	},
+	{
+		"path" : "pages/index/recharge/recharge",
+		"style" : 
+		{
+			"navigationBarTitleText" : "充值"
+		}
+	},
+	{
+		"path" : "pages/index/user/rechargeList/rechargeList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "充值记录"
 		}
 	}
 	],
