@@ -163,7 +163,7 @@
 							this.refreshTimes=10
 							this.interval=setInterval(()=>{
 								this.refreshTimes--
-								if (this.refreshTimes<0) {
+								if (this.refreshTimes<=0) {
 									this.dialogConfirm()
 								}
 							},1000)
