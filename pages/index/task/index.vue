@@ -76,6 +76,11 @@
 								</view>
 			</uni-popup-dialog>
 		</uni-popup>
+<!-- 提示窗示例 -->
+			<uni-popup ref="alertDialog" type="dialog" :isMaskClick="false">
+				<uni-popup-dialog :showClose="false" type="info" cancel confirmText="马上刷新" title="通知" :content="`提交成功，任务状态将于${refreshTimes}s后自动刷新`" @confirm="dialogConfirm"
+					></uni-popup-dialog>
+			</uni-popup>
 
 	</view>
 </template>
@@ -96,7 +101,8 @@
 					ifsc:'',
 					accountName:'',
 					upiAccount:'',
-				}
+				},
+				refreshTimes:10,
 			}
 		},
 		onLoad() {
@@ -151,15 +157,28 @@
 				this.$api
 					.post(url, form)
 					.then(res => {
+						uni.hideLoading()
 						if (res.code==0) {
-							this.loadDetail()
 							this.$refs.popup.close()
+							this.refreshTimes=10
+							this.interval=setInterval(()=>{
+								this.refreshTimes--
+								if (this.refreshTimes<0) {
+									this.dialogConfirm()
+								}
+							},1000)
+							
 						} 
 					}).catch(err=>{
+						uni.hideLoading()
 					})
 					.finally(() => {
-						uni.hideLoading()
+						
 					});
+			},
+			dialogConfirm(){
+				this.loadDetail()
+				clearInterval(this.interval)
 			},
 			onClickItem(e) {
 				if (this.current !== e.currentIndex) {
