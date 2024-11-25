@@ -160,7 +160,8 @@
 						uni.hideLoading()
 						if (res.code==0) {
 							this.$refs.popup.close()
-							this.list=[]
+							this.loadDetail()
+							
 							// this.refreshTimes=10
 							// this.interval=setInterval(()=>{
 							// 	this.refreshTimes--
@@ -281,11 +282,12 @@
 				this.$api
 					.post(url,form)
 					.then(res => {
+						this.list=[]
 					}).catch(err=>{
 					})
 					.finally(() => {
 						uni.hideLoading()
-						this.loadDetail()
+						// this.loadDetail()
 					});
 			}
 		}
