@@ -160,13 +160,14 @@
 						uni.hideLoading()
 						if (res.code==0) {
 							this.$refs.popup.close()
-							this.refreshTimes=10
-							this.interval=setInterval(()=>{
-								this.refreshTimes--
-								if (this.refreshTimes<=0) {
-									this.dialogConfirm()
-								}
-							},1000)
+							this.list=[]
+							// this.refreshTimes=10
+							// this.interval=setInterval(()=>{
+							// 	this.refreshTimes--
+							// 	if (this.refreshTimes<=0) {
+							// 		this.dialogConfirm()
+							// 	}
+							// },1000)
 							
 						} 
 					}).catch(err=>{
