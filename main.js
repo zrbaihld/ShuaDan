@@ -1,12 +1,9 @@
-import th from './lang/th.json'
+// import th from './lang/th.json'
 import App from './App'
-
-const messages = {
-	th,
-}
+import messages from './locale/index'
 
 let i18nConfig = {
-  locale: 'th',// 获取已设置的语言
+  locale: uni.getLocale(),
   messages
 }
 // #ifndef VUE3

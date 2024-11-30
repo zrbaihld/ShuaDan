@@ -3,16 +3,16 @@
 		<image class="bg" src="../../static/icon_login_bg.png"></image>
 		<view class="content">
 			<view class="title">{{$t("Welcome")}}</view>
-			<view class="des">{{$t('लॉग इन करने के लिए कृपया अपना खाता नंबर और पासवर्ड दर्ज करें')}}</view>
+			<view class="des">{{$t('请输入您的帐号和密码登录。')}}</view>
 			<view class="login-input" style="margin-top: 87rpx;">
-				<uni-easyinput v-model="form.userAccount" :inputBorder="false" :clearable=false :placeholder="$t('कृपया अपना ईमेल खाता दर्ज करें')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
+				<uni-easyinput v-model="form.userAccount" :inputBorder="false" :clearable=false :placeholder="$t('请验证您的电子邮件帐户。')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
 					<template v-slot:left>
 						<image class="login-user" mode="widthFix" style="width: 40rpx;margin-left: 40rpx;"  src="../../static/icon_login_user.png"></image>
 					</template>
 				</uni-easyinput>
 			</view>
 			<view class="login-input" style="margin-top: 46rpx;">
-				<uni-easyinput v-model="form.userPassword" type="password" :inputBorder="false" :clearable=false :placeholder="$t('पास वर्ड दर्ज करें')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
+				<uni-easyinput v-model="form.userPassword" type="password" :inputBorder="false" :clearable=false :placeholder="$t('确认密码')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
 					<template v-slot:left>
 						<image class="login-user" mode="widthFix" style="width: 40rpx;margin-left: 40rpx;"  src="../../static/icon_login_password.png"></image>
 					</template>
@@ -20,7 +20,7 @@
 				<!-- <image class="login-input-right" mode="widthFix" style="width: 40rpx;margin-right: 40rpx;"  src="../../static/icon_login_password_see.png"></image> -->
 			</view>
 			<view class="login-input" style="margin-top: 46rpx;" >
-				<uni-easyinput v-model="form.email"  :inputBorder="false" :clearable=false :placeholder="$t('सत्यापन कोड भरेंें')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
+				<uni-easyinput v-model="form.email"  :inputBorder="false" :clearable=false :placeholder="$t('输入身份验证码')" prefixIcon="" placeholderStyle="color: '#CCCCCC'">
 					<template v-slot:left>
 						<image class="login-user" mode="widthFix" style="width: 40rpx;margin-left: 40rpx;"  src="../../static/icon_login_email.png"></image>
 					</template>
@@ -28,15 +28,15 @@
 			</view>
 			
 			<view class="btn-login" style="margin-top: 90rpx;" @click="doLogin">
-				{{$t('ईमेल सत्यापन कोड भेजें')}}
+				{{$t('发送电子邮件验证码')}}
 			</view>
 			<view class="login-tips" style="margin-top: 82rpx;">
 				<view class="login-tips-line"></view>
-				<view>{{$t('कोई खाता नहीं है?')}}</view>
+				<view>{{$t('没有账号？')}}</view>
 				<view class="login-tips-line"></view>
 			</view>
 			<view class="btn-regster" style="margin-top: 72rpx;" @click="toRegister">
-				{{$t('पंजीकरण करवाना')}}
+				{{$t('注册')}}
 			</view>
 		</view>
 		

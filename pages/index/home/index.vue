@@ -6,18 +6,18 @@
 			<view class="top-view-line" style="margin-top: 30rpx;"></view>
 			<view>
 				<view class="top-view-price" style="margin-top: 46rpx;">
-					{{$t('उपलब्ध धन')}}：{{detail.balance}}
+					{{$t('余额')}}：{{detail.balance}}
 					<image src="../../../static/icon_bottom_price.png" style="width: 31rpx;" mode="widthFix"></image>
 				</view>
 				<view class="top-view-white" style="margin-top: 38rpx;">
-					{{$t('प्रगति पर है')}}：{{detail.pendingOrder}}
+					{{$t('进单')}}：{{detail.pendingOrder}}
 				</view>
 				<view class="top-view-price" style="margin-top: 46rpx;">
-					{{$t('उपलब्ध धन')}}：{{detail.pendingMoney}}
+					{{$t('进单金额')}}：{{detail.pendingMoney}}
 					<image src="../../../static/icon_bottom_price.png" style="width: 31rpx;" mode="widthFix"></image>
 				</view>
 				<view class="top-view-white" style="margin-top: 38rpx;">
-					{{$t('प्रगति पर है')}}：{{detail.successOrder}}
+					{{$t('成功订单')}}：{{detail.successOrder}}
 				</view>
 			</view>
 			<view class="top-view-line" style="margin-top: 30rpx;"></view>
@@ -25,30 +25,30 @@
 		</view>
 		<view class="notice">
 			<image src="../../../static/icon_bottom_notice.png" style="width: 46rpx;margin: 0 17rpx 0 11rpx;" mode="widthFix"></image>
-			<view style="flex-wrap: nowrap;overflow: hidden;">{{$t('निधि प्रवाह पूछताछनिधि प्रवाह पूछताछनिधि प्रवाधि प्रवाधि')}}  </view>
+			<view style="flex-wrap: nowrap;overflow: hidden;">{{$t('立法流程要求获得流程和做法的许可。')}}  </view>
 		</view>
 		<view class="content">
 			<view class="content-item-view">
 				<view class="content-item" style="margin-top: 60rpx;" @click="showCash">
 					<image src="../../../static/icon_bottom_tixian.png" style="width: 80rpx;" mode="widthFix"></image>
-					<view>{{$t('नकदी वापिस लेना')}}</view>
+					<view>{{$t('提现')}}</view>
 				</view>
 				
 				<view class="content-item" style="margin-top: 60rpx;background-color: #F5BB0F;" @click="toRecharge">
 					<image src="../../../static/icon_bottom_czcs.png" style="width: 80rpx;" mode="widthFix"></image>
-					<view>{{$t('लबालब भरनाा')}}</view>
+					<view>{{$t('充值')}}</view>
 				</view>
 				
 				<view class="content-item" style="margin-top: 60rpx;background-color: #1772F6;" @click="toRechargeList">
 					<image src="../../../static/icon_bottom_water.png" style="width: 80rpx;" mode="widthFix"></image>
-					<view>{{$t('निधि प्रवाह पूछताछ')}}</view>
+					<view>{{$t('充值记录')}}</view>
 				</view>
 			</view>
 			
 		</view>
 		<uni-popup ref="popup" background-color="#fff">
-			<uni-popup-dialog ref="inputClose" mode="input" title="提现"
-				placeholder="请输入内容" @confirm="dialogInputConfirm">
+			<uni-popup-dialog ref="inputClose" mode="input" :title="$t('提现')"
+				:placeholder="$t('提现')" @confirm="dialogInputConfirm">
 				<view class="popup-content">
 					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.money" :clearable=false :placeholder="$t('提现金额')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
 					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.trc20Address" :clearable=false :placeholder="$t('收款地址')" prefixIcon="" placeholderStyle="color: '#CCCCCC'"></uni-easyinput>
@@ -91,7 +91,7 @@
 		methods: {
 			loadDetail(){
 				uni.showLoading({
-					title:'加载中'
+					title:this.$t('加载中')
 				})
 				this.$api
 					.post(this.$url.userIndex, {})

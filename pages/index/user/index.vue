@@ -45,7 +45,7 @@
 			<view class="menu-item" @click="goPage('cashList')">
 				<view class="left">
 					<image class="menu-icon" src="@/static/icons/icon_coupon.png"></image>
-					<view class="menu-name">提现记录</view>
+					<view class="menu-name">{{$t('提现记录')}}</view>
 				</view>
 				<u-icon name="arrow-right"></u-icon>
 			</view>

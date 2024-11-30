@@ -1,16 +1,16 @@
 <template>
 	<view class="content-view">
-		<view>充值完成以后需要上传充值凭证，后台人工审核</view>
+		<view>{{$t('充值完成以后需要上传充值凭证，后台人工审核')}}</view>
 		
 		<image :src="detail.photo" mode="aspectFit"></image>
 		<view class="tips">
-			充值地址：{{detail.addr}}
+			{{$t('充值地址')}}：{{detail.addr}}
 		</view>
 		
-		<u-button type="primary" text="上传凭证" @click="success"></u-button>
+		<u-button type="primary" :text="$t('上传凭证')" @click="success"></u-button>
 		
 		<uni-popup ref="popup" background-color="#fff">
-			<uni-popup-dialog ref="inputClose" mode="input" title="充值成功" value="对话框预置提示内容!"
+			<uni-popup-dialog ref="inputClose" mode="input" :title="$('充值成功')" value="对话框预置提示内容!"
 				placeholder="请输入内容" @confirm="dialogInputConfirm">
 				<view class="popup-content">
 					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.sysAddr"
@@ -52,7 +52,7 @@
 		methods: {
 			loadList() {
 				uni.showLoading({
-					title: '加载中'
+					title: this.$t('加载中')
 				})
 				this.$api
 					.post(url.rechargeGetAddr, {
@@ -79,7 +79,7 @@
 			},
 			dialogInputConfirm(){
 				uni.showLoading({
-					title:'加载中'
+					title:this.$t('加载中')
 				})
 				this.$api
 					.post(url.rechargeSubmit, this.dialogForm)
