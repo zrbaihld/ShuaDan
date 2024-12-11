@@ -26,7 +26,7 @@
 			<view v-if="list.length>0">
 				<view class="content-card" v-for="item in list">
 					<view class="line1">
-						<view>{{$('订单号')}}：{{item.orderNo}}</view>
+						<view>{{$t('订单号')}}：{{item.orderNo}}</view>
 						<image src="../../../static/icon_bottom_select.png" style="width: 26rpx;height: 26rpx;"></image>
 					</view>
 					<view class="line3" v-if="current==0">

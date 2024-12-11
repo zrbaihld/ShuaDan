@@ -10,7 +10,7 @@
 		<u-button type="primary" :text="$t('上传凭证')" @click="success"></u-button>
 		
 		<uni-popup ref="popup" background-color="#fff">
-			<uni-popup-dialog ref="inputClose" mode="input" :title="$('充值成功')" value="对话框预置提示内容!"
+			<uni-popup-dialog ref="inputClose" mode="input" :title="$t('充值成功')" value="对话框预置提示内容!"
 				placeholder="请输入内容" @confirm="dialogInputConfirm">
 				<view class="popup-content">
 					<uni-easyinput style="margin-top: 10rpx;" v-model="dialogForm.sysAddr"
