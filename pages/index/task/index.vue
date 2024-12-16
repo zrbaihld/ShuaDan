@@ -37,6 +37,10 @@
 						<view class="line3-title">{{$t('账户')}}：{{item.bankAccount}}</view>
 						<image src="../../../static/icon_bottom_copy.png" style="width: 35rpx;height: 38rpx;margin-left: 17rpx;" @click="copyAccount(item.bankAccount)"></image>
 					</view>
+					<view class="line4" v-if="current==1">
+						<view class="line3-title">{{$t('账户名')}}：{{item.person}}</view>
+						<view class="line3-title">{{$t('IFSC')}}：{{item.IFSC}}</view>
+					</view>
 					<view class="line4">
 						<view>{{$t('金额')}}：{{item.orderMoney}}</view>
 						<view>{{$t('福利')}}：{{item.commission}}</view>
@@ -91,7 +95,7 @@
 		data() {
 			return {
 				accountType:0,
-				list:[],
+				list:[{}],
 				current: 0,
 				styleType: 'button',
 				items: ['UPI', 'Bank'],
