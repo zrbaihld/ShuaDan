@@ -95,7 +95,7 @@
 		data() {
 			return {
 				accountType:0,
-				list:[{}],
+				list:[],
 				current: 0,
 				styleType: 'button',
 				items: ['UPI', 'Bank'],
