@@ -189,6 +189,7 @@
 			onClickItem(e) {
 				if (this.current !== e.currentIndex) {
 					this.current = e.currentIndex
+					this.loadDetail()
 				}
 				
 			},
