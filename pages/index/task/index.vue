@@ -126,6 +126,7 @@
 				}else{
 					url=this.$url.payoutOrderGetPending
 				}
+				this.list=[]
 				this.$api
 					.post(url, {
 						userAccount:this.$store.getters.aid,
@@ -134,7 +135,9 @@
 					.then(res => {
 						if (res.code==0) {
 							this.list=[res.data]
-						} 
+						} else{
+							this.list=[]
+						}
 					}).catch(err=>{
 						if(err.code==32||err.code==31){
 							this.$refs.popup.open()
